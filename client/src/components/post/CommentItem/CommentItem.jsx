@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { formatDate } from '../../../utils/format_date';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -33,8 +33,8 @@ const CommentItem = ({ comment }) => {
           </p>
           <p className="text-gray-800 text-sm leading-relaxed">{comment.text}</p>
           <p className="text-gray-500 text-xs">
-            <time dateTime={moment(comment.createdAt).toISOString()}>
-              {moment(comment.createdAt).locale('ja').format('LL')}
+            <time dateTime={comment.createdAt}>
+              {formatDate(comment.createdAt)}
             </time>
           </p>
         </div>
