@@ -3,14 +3,13 @@
  * @returns {Promise<ArrayBuffer>}
  */
 async function fetchBinary(url) {
-  const result = await $.ajax({
-    async: false,
-    dataType: 'binary',
+  const result = await fetch(url, {
     method: 'GET',
-    responseType: 'arraybuffer',
-    url,
-  });
-  return result;
+    headers: {
+      'Accept': 'application/octet-stream',
+    }
+  })
+  return result.arrayBuffer();
 }
 
 /**
@@ -19,13 +18,13 @@ async function fetchBinary(url) {
  * @returns {Promise<T>}
  */
 async function fetchJSON(url) {
-  const result = await $.ajax({
-    async: false,
-    dataType: 'json',
+  const result = await fetch(url, {
     method: 'GET',
-    url,
-  });
-  return result;
+  })
+  if (!result.ok) {
+    throw new Error(`${result.status}: ${result.url}`)
+  }
+  return result.json();
 }
 
 /**
@@ -35,18 +34,15 @@ async function fetchJSON(url) {
  * @returns {Promise<T>}
  */
 async function sendFile(url, file) {
-  const result = await $.ajax({
-    async: false,
-    data: file,
-    dataType: 'json',
+  const result = await fetch(url, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/octet-stream',
+      'Accept': 'application/json'
     },
-    method: 'POST',
-    processData: false,
-    url,
-  });
-  return result;
+    body: file,
+  })
+  return result.json();
 }
 
 /**
@@ -58,18 +54,15 @@ async function sendFile(url, file) {
 async function sendJSON(url, data) {
   const jsonString = JSON.stringify(data);
 
-  const result = await $.ajax({
-    async: true,
-    data: jsonString,
-    dataType: 'json',
+  const result = await fetch(url, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
-    method: 'POST',
-    processData: false,
-    url,
-  });
-  return result;
+    body: jsonString,
+  })
+  return result.json();
 }
 
 export { fetchBinary, fetchJSON, sendFile, sendJSON };
