@@ -22,6 +22,7 @@ const config = {
     },
     static: [PUBLIC_PATH, UPLOAD_PATH],
   },
+  mode: 'production',
   devtool: 'source-map',
   entry: {
     main: [
