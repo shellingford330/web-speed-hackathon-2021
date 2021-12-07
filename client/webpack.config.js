@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const webpack = require('webpack');
 
 const SRC_PATH = path.resolve(__dirname, './src');
@@ -79,6 +80,7 @@ const config = {
       inject: false,
       template: path.resolve(SRC_PATH, './index.html'),
     }),
+    new LodashModuleReplacementPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
