@@ -86,6 +86,9 @@ const config = {
       fs: false,
       path: false,
     },
+    alias: {
+      bluebird: path.resolve(SRC_PATH, './misc/promise.js'),
+    }
   },
 };
 
