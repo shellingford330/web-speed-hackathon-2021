@@ -20,4 +20,4 @@ const TimelineContainer = () => {
   );
 };
 
-export { TimelineContainer };
+export { TimelineContainer, TimelineContainer as default };

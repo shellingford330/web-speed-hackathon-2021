@@ -38,4 +38,4 @@ const UserProfileContainer = () => {
   );
 };
 
-export { UserProfileContainer };
+export { UserProfileContainer, UserProfileContainer as default };

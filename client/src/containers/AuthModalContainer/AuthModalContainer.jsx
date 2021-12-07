@@ -53,4 +53,4 @@ const AuthModalContainer = ({ onRequestCloseModal, onUpdateActiveUser }) => {
   );
 };
 
-export { AuthModalContainer };
+export { AuthModalContainer, AuthModalContainer as default };

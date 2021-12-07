@@ -39,4 +39,4 @@ const PostContainer = () => {
   );
 };
 
-export { PostContainer };
+export { PostContainer, PostContainer as default };

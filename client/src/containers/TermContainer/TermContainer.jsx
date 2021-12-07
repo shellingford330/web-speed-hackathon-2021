@@ -15,4 +15,4 @@ const TermContainer = () => {
   );
 };
 
-export { TermContainer };
+export { TermContainer, TermContainer as default };

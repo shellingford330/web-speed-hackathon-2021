@@ -68,4 +68,4 @@ const NewPostModalContainer = ({ onRequestCloseModal }) => {
   );
 };
 
-export { NewPostModalContainer };
+export { NewPostModalContainer, NewPostModalContainer as default };
