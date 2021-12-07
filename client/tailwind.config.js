@@ -1,7 +1,13 @@
 module.exports = {
   darkMode: false,
-  purge: [
-    './src/**/*.html',
-    './src/**/*.jsx',
-  ],
+  purge: {
+    content: [
+      './src/**/*.html',
+      './src/**/*.jsx',
+    ],
+    options: {
+      keyframes: true,
+      fontface: true,
+    }
+  },
 };
