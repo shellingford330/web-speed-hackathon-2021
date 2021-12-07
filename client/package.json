@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "license": "MPL-2.0",
   "scripts": {
-    "analyze": "cross-env NODE_ENV=production webpack --analyze",
+    "analyze": "NODE_ENV=production webpack --analyze",
     "prebuild": "rimraf ../dist",
-    "build": "cross-env NODE_ENV=production webpack",
-    "develop": "cross-env NODE_ENV=production webpack serve"
+    "build": "NODE_ENV=production webpack",
+    "develop": "NODE_ENV=production webpack serve"
   },
   "dependencies": {
     "buffer": "6.0.3",
@@ -36,7 +36,6 @@
     "@types/react-helmet": "6.1.4",
     "@types/react-router-dom": "5.3.2",
     "babel-loader": "8.2.3",
-    "cross-env": "7.0.3",
     "css-loader": "6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
     "html-webpack-plugin": "5.5.0",
