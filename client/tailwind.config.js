@@ -5,9 +5,7 @@ module.exports = {
       './src/**/*.html',
       './src/**/*.jsx',
     ],
-    options: {
-      keyframes: true,
-      fontface: true,
-    }
+    mode: 'all',
+    preserveHtmlElements: false,
   },
 };
