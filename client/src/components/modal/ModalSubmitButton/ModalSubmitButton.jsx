@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { classNames } from '../../../utils/classnames';
 import React from 'react';
 
 import { FontAwesomeIcon } from '../../foundation/FontAwesomeIcon';
@@ -15,9 +15,9 @@ import { FontAwesomeIcon } from '../../foundation/FontAwesomeIcon';
 const ModalSubmitButton = ({ children, disabled, loading, onClick }) => {
   return (
     <button
-      className={classNames('block px-8 py-2 text-white bg-green-600 rounded', {
-        'opacity-50 cursor-not-allowed': disabled,
-      })}
+      className={classNames('block px-8 py-2 text-white bg-green-600 rounded',
+        disabled ? 'opacity-50 cursor-not-allowed' : '',
+      )}
       disabled={disabled}
       onClick={onClick}
       type="submit"

@@ -1,6 +1,7 @@
-import classNames from 'classnames';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { classNames } from '../../../utils/classnames';
 
 /**
  * @typedef {object} Props
@@ -20,9 +21,7 @@ const NavigationItem = ({ href, icon, onClick, text }) => {
           className={({ isActive }) =>
             classNames(
               'flex flex-col items-center justify-center w-12 h-12 hover:bg-green-50 rounded-full sm:px-2 sm:w-24 sm:h-auto sm:rounded lg:flex-row lg:justify-start lg:px-4 lg:py-2 lg:w-auto lg:h-auto lg:rounded-full',
-              {
-                'text-green-800': isActive,
-              },
+              isActive ? 'text-green-800' : ''
             )
           }
           onClick={onClick}

@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { classNames } from '../../../utils/classnames';
 import React from 'react';
 
 import { getImagePath } from '../../../utils/get_path';
@@ -20,12 +20,12 @@ const ImageArea = ({ images }) => {
             <div
               key={image.id}
               // CSS Grid で表示領域を指定する
-              className={classNames('bg-gray-300', {
-                'col-span-1': images.length !== 1,
-                'col-span-2': images.length === 1,
-                'row-span-1': images.length > 2 && (images.length !== 3 || idx !== 0),
-                'row-span-2': images.length <= 2 || (images.length === 3 && idx === 0),
-              })}
+              className={classNames('bg-gray-300',
+                images.length !== 1 ? 'col-span-1' : '',
+                images.length === 1 ? 'col-span-2' : '',
+                images.length > 2 && (images.length !== 3 || idx !== 0) ? 'row-span-1' : '',
+                images.length <= 2 || (images.length === 3 && idx === 0) ? 'row-span-2' : '',
+              )}
             >
               <CoveredImage alt={image.alt} src={getImagePath(image.id)} />
             </div>
