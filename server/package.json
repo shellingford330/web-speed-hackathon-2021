@@ -3,18 +3,16 @@
   "name": "@web-speed-hackathon-2021/server",
   "version": "0.0.1",
   "license": "MPL-2.0",
-  "main": "src/index.js",
+  "main": "dist/main.js",
   "scripts": {
-    "build": "echo noop",
+    "prebuild": "rimraf ./dist",
+    "build": "NODE_ENV=production webpack",
     "prestart": "npm-run-all prestart:clean prestart:init",
-    "start": "babel-node --experimental-wasm-threads src/index.js",
+    "start": "node --enable-source-maps --experimental-wasm-threads dist/main.js",
     "prestart:clean": "rimraf ../upload",
     "prestart:init": "mkdirp ../upload/images ../upload/movies ../upload/sounds ../upload/sounds/waves"
   },
   "dependencies": {
-    "@babel/core": "7.16.0",
-    "@babel/node": "7.16.0",
-    "@babel/preset-env": "7.16.4",
     "@ffmpeg/core": "0.10.0",
     "@ffmpeg/ffmpeg": "0.10.1",
     "bcrypt": "5.0.1",
@@ -40,6 +38,8 @@
     "web-audio-api": "^0.2.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
     "@types/bcrypt": "10.0.28-alpha",
     "@types/body-parser": "1.19.2",
     "@types/connect-history-api-fallback": "1.3.5",
@@ -49,7 +49,11 @@
     "@types/serve-static": "1.13.10",
     "@types/sharp": "0.29.4",
     "@types/sqlite3": "3.1.7",
-    "@types/uuid": "8.3.3"
+    "@types/uuid": "8.3.3",
+    "babel-loader": "^8.2.3",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-node-externals": "^3.0.0"
   },
   "engines": {
     "node": "16.x.x"
