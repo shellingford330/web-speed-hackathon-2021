@@ -1,4 +1,4 @@
-import React from 'react';
+import { useQuery } from "react-query";
 
 /**
  * @template T
@@ -15,37 +15,9 @@ import React from 'react';
  * @returns {ReturnValues<T>}
  */
 export function useFetch(apiPath, fetcher) {
-  const [result, setResult] = React.useState({
-    data: null,
-    error: null,
-    isLoading: true,
+  const { data, error, isLoading } = useQuery(apiPath, () => fetcher(apiPath), {
+    retry: false
   });
 
-  React.useEffect(() => {
-    setResult(() => ({
-      data: null,
-      error: null,
-      isLoading: true,
-    }));
-
-    const promise = fetcher(apiPath);
-
-    promise.then((data) => {
-      setResult((cur) => ({
-        ...cur,
-        data,
-        isLoading: false,
-      }));
-    });
-
-    promise.catch((error) => {
-      setResult((cur) => ({
-        ...cur,
-        error,
-        isLoading: false,
-      }));
-    });
-  }, [apiPath, fetcher]);
-
-  return result;
+  return { data: data ?? null, error, isLoading };
 }

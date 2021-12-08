@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
+import { useQueryClient } from 'react-query';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { AppPage } from '../../components/application/AppPage';
@@ -20,11 +21,11 @@ const AppContainer = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const [activeUser, setActiveUser] = React.useState(null);
-  const { data, isLoading } = useFetch('/api/v1/me', fetchJSON);
-  React.useEffect(() => {
-    setActiveUser(data);
-  }, [data]);
+  const { data: activeUser, isLoading } = useFetch('/api/v1/me', fetchJSON);
+  const queryClient = useQueryClient()
+  const handleUpdateActiveUser = React.useCallback(() => {
+    queryClient.invalidateQueries('/api/v1/me');
+  }, [queryClient]);
 
   const [modalType, setModalType] = React.useState('none');
   const handleRequestOpenAuthModal = React.useCallback(() => setModalType('auth'), []);
@@ -56,7 +57,7 @@ const AppContainer = () => {
       </AppPage>
 
       {modalType === 'auth' ? (
-        <AuthModalContainer onRequestCloseModal={handleRequestCloseModal} onUpdateActiveUser={setActiveUser} />
+        <AuthModalContainer onRequestCloseModal={handleRequestCloseModal} onUpdateActiveUser={handleUpdateActiveUser} />
       ) : null}
       {modalType === 'post' ? <NewPostModalContainer onRequestCloseModal={handleRequestCloseModal} /> : null}
     </Suspense>

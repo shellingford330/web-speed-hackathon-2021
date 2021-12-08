@@ -1,4 +1,5 @@
 import React from 'react';
+import { useInfiniteQuery } from 'react-query';
 
 const LIMIT = 10;
 
@@ -18,76 +19,31 @@ const LIMIT = 10;
  * @returns {ReturnValues<T>}
  */
 export function useInfiniteFetch(apiPath, fetcher) {
-  const internalRef = React.useRef({ isLoading: false, offset: 0 });
+  const { data, error, fetchNextPage, isLoading } = useInfiniteQuery(
+    apiPath,
+    ({ pageParam }) => {
+      const { offset } = pageParam ?? { offset: 0 };
+      const url = new URL(apiPath, location.href);
+      url.searchParams.set('offset', offset);
+      url.searchParams.set('limit', LIMIT);
 
-  const [result, setResult] = React.useState({
-    data: [],
-    error: null,
-    isLoading: true,
-  });
+      return fetcher(url);
+    },
+    {
+      getNextPageParam: (data, pages) => {
+        if (data.length === 0) { return undefined }
+        return { offset: pages.flat().length,  }
+      },
+      retry: false,
+    },
+  );
 
-  const fetchMore = React.useCallback(() => {
-    const { isLoading, offset } = internalRef.current;
-    if (isLoading) {
-      return;
-    }
-
-    setResult((cur) => ({
-      ...cur,
-      isLoading: true,
-    }));
-    internalRef.current = {
-      isLoading: true,
-      offset,
-    };
-
-    const url = new URL(apiPath, location.href);
-    url.searchParams.set('offset', offset)
-    url.searchParams.set('limit', LIMIT)
-
-    const promise = fetcher(url);
-
-    promise.then((data) => {
-      setResult((cur) => ({
-        ...cur,
-        data: [...cur.data, ...data],
-        isLoading: false,
-      }));
-      internalRef.current = {
-        isLoading: false,
-        offset: offset + LIMIT,
-      };
-    });
-
-    promise.catch((error) => {
-      setResult((cur) => ({
-        ...cur,
-        error,
-        isLoading: false,
-      }));
-      internalRef.current = {
-        isLoading: false,
-        offset,
-      };
-    });
-  }, [apiPath, fetcher]);
-
-  React.useEffect(() => {
-    setResult(() => ({
-      data: [],
-      error: null,
-      isLoading: true,
-    }));
-    internalRef.current = {
-      isLoading: false,
-      offset: 0,
-    };
-
-    fetchMore();
-  }, [fetchMore]);
+  const flattenData = React.useMemo(() => data?.pages.flat() ?? [], [data])
 
   return {
-    ...result,
-    fetchMore,
-  };
+    data: flattenData,
+    error,
+    isLoading,
+    fetchMore: fetchNextPage,
+  }
 }
