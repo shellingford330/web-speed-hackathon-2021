@@ -9,7 +9,7 @@
     "prestart": "npm-run-all prestart:clean prestart:init",
     "start": "babel-node --experimental-wasm-threads src/index.js",
     "prestart:clean": "rimraf ../upload",
-    "prestart:init": "mkdirp ../upload/images ../upload/movies ../upload/sounds"
+    "prestart:init": "mkdirp ../upload/images ../upload/movies ../upload/sounds ../upload/sounds/waves"
   },
   "dependencies": {
     "@babel/core": "7.16.0",
@@ -36,7 +36,8 @@
     "sharp": "0.29.3",
     "sqlite3": "5.0.2",
     "ulid": "2.3.0",
-    "uuid": "8.3.2"
+    "uuid": "8.3.2",
+    "web-audio-api": "^0.2.2"
   },
   "devDependencies": {
     "@types/bcrypt": "10.0.28-alpha",
