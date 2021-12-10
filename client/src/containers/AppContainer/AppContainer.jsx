@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useQueryClient } from 'react-query';
 import { Route, Routes, useLocation } from 'react-router-dom';
@@ -41,7 +41,7 @@ const AppContainer = () => {
   }
 
   return (
-    <Suspense fallback={null}>
+    <React.Suspense fallback={null}>
       <AppPage
         activeUser={activeUser}
         onRequestOpenAuthModal={handleRequestOpenAuthModal}
@@ -60,7 +60,7 @@ const AppContainer = () => {
         <AuthModalContainer onRequestCloseModal={handleRequestCloseModal} onUpdateActiveUser={handleUpdateActiveUser} />
       ) : null}
       {modalType === 'post' ? <NewPostModalContainer onRequestCloseModal={handleRequestCloseModal} /> : null}
-    </Suspense>
+    </React.Suspense>
   );
 };
 

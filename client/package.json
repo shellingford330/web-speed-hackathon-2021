@@ -41,6 +41,8 @@
     "postcss-import": "14.0.2",
     "postcss-loader": "6.2.0",
     "postcss-preset-env": "7.0.1",
+    "preact": "10.4.6",
+    "preact-compat": "^3.19.0",
     "rimraf": "3.0.2",
     "style-loader": "3.3.1",
     "terser-webpack-plugin": "^5.2.5",
