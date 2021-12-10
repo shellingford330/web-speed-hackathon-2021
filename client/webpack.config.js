@@ -31,7 +31,6 @@ const config = {
       path.resolve(SRC_PATH, './buildinfo.js'),
       path.resolve(SRC_PATH, './index.jsx'),
     ],
-    webfont: [path.resolve(SRC_PATH, './styles/webfont.css')]
   },
   module: {
     rules: [
