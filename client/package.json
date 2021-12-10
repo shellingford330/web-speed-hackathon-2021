@@ -10,6 +10,8 @@
     "develop": "NODE_ENV=production webpack serve"
   },
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "buffer": "6.0.3",
     "compression-webpack-plugin": "^9.1.1",
     "core-js": "3.19.1",

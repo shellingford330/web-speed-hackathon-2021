@@ -2,6 +2,7 @@ import React from 'react';
 
 import { AspectRatioBox } from '../AspectRatioBox';
 import { FontAwesomeIcon } from '../FontAwesomeIcon';
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { getSoundPath } from '../../../utils/get_path';
 import { getSoundWavePath } from '../../../utils/get_path';
 
@@ -44,7 +45,7 @@ const SoundPlayer = ({ sound }) => {
           onClick={handleTogglePlaying}
           type="button"
         >
-          <FontAwesomeIcon iconType={isPlaying ? 'pause' : 'play'} styleType="solid" />
+          <FontAwesomeIcon icon={isPlaying ? faPause : faPlay } />
         </button>
       </div>
       <div className="flex flex-col flex-grow flex-shrink pt-2 min-w-0 h-full">
