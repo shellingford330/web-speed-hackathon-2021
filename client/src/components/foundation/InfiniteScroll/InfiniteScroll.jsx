@@ -10,41 +10,30 @@ import React from 'react';
 /** @type {React.VFC<Props>} */
 const InfiniteScroll = ({ children, fetchMore, items }) => {
   const latestItem = items[items.length - 1];
-
-  const prevReachedRef = React.useRef(false);
+  const bottomRef = React.useRef(null);
 
   React.useEffect(() => {
-    const handler = () => {
-      const hasReached = window.innerHeight + Math.ceil(window.scrollY) >= document.body.offsetHeight;
-
-      // 画面最下部にスクロールしたタイミングで、登録したハンドラを呼び出す
-      if (hasReached && !prevReachedRef.current) {
+    const observer = new IntersectionObserver(([{ isIntersecting }]) => {
+      if (isIntersecting) {
         // アイテムがないときは追加で読み込まない
         if (latestItem !== undefined) {
           fetchMore();
         }
       }
+    });
 
-      prevReachedRef.current = hasReached;
-    };
-
-    // 最初は実行されないので手動で呼び出す
-    prevReachedRef.current = false;
-    handler();
-
-    document.addEventListener('wheel', handler, { passive: true });
-    document.addEventListener('touchmove', handler, { passive: true });
-    document.addEventListener('resize', handler, { passive: true });
-    document.addEventListener('scroll', handler, { passive: true });
+    observer.observe(bottomRef.current);
     return () => {
-      document.removeEventListener('wheel', handler);
-      document.removeEventListener('touchmove', handler);
-      document.removeEventListener('resize', handler);
-      document.removeEventListener('scroll', handler);
+      observer.disconnect();
     };
   }, [latestItem, fetchMore]);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <div ref={bottomRef} className="w-full h-px"></div>
+    </>
+  );
 };
 
 export { InfiniteScroll };
