@@ -41,26 +41,26 @@ const AppContainer = () => {
   }
 
   return (
-    <React.Suspense fallback={null}>
+    <>
       <AppPage
         activeUser={activeUser}
         onRequestOpenAuthModal={handleRequestOpenAuthModal}
         onRequestOpenPostModal={handleRequestOpenPostModal}
       >
         <Routes>
-          <Route element={<TimelineContainer />} path="/" />
-          <Route element={<UserProfileContainer />} path="/users/:username" />
-          <Route element={<PostContainer />} path="/posts/:postId" />
-          <Route element={<TermContainer />} path="/terms" />
-          <Route element={<NotFoundContainer />} path="*" />
+          <Route element={<React.Suspense fallback={null}><TimelineContainer /></React.Suspense>} path="/" />
+          <Route element={<React.Suspense fallback={null}><UserProfileContainer /></React.Suspense>} path="/users/:username" />
+          <Route element={<React.Suspense fallback={null}><PostContainer /></React.Suspense>} path="/posts/:postId" />
+          <Route element={<React.Suspense fallback={null}><TermContainer /></React.Suspense>} path="/terms" />
+          <Route element={<React.Suspense fallback={null}><NotFoundContainer /></React.Suspense>} path="*" />
         </Routes>
       </AppPage>
 
       {modalType === 'auth' ? (
-        <AuthModalContainer onRequestCloseModal={handleRequestCloseModal} onUpdateActiveUser={handleUpdateActiveUser} />
+        <React.Suspense fallback={null}><AuthModalContainer onRequestCloseModal={handleRequestCloseModal} onUpdateActiveUser={handleUpdateActiveUser} /></React.Suspense>
       ) : null}
-      {modalType === 'post' ? <NewPostModalContainer onRequestCloseModal={handleRequestCloseModal} /> : null}
-    </React.Suspense>
+      {modalType === 'post' ? <React.Suspense fallback={null}><NewPostModalContainer onRequestCloseModal={handleRequestCloseModal} /></React.Suspense> : null}
+    </>
   );
 };
 
