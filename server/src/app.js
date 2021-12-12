@@ -25,7 +25,7 @@ app.use(compression());
 
 app.use((_req, res, next) => {
   res.header({
-    'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+    'Cache-Control': 'public, max-age=31536000, s-maxage=31536000',
     Connection: 'close',
   });
   return next();
